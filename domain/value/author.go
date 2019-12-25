@@ -1,4 +1,4 @@
-package model
+package value
 
 type Author struct {
 	name  string

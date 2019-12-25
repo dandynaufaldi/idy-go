@@ -1,12 +1,16 @@
-package model
+package value
+
+import (
+	"github.com/google/uuid"
+)
 
 type IdeaID struct {
 	id string
 }
 
-func NewIdeaID(id string, IDProvider IDProvider) *IdeaID {
+func NewIdeaID(id string) *IdeaID {
 	if id == "" {
-		id = IDProvider.Generate()
+		id = uuid.New().String()
 	}
 	return &IdeaID{
 		id: id,

@@ -1,12 +1,16 @@
-package model
+package entity
+
+import (
+	"github.com/dandynaufaldi/idy-go/domain/value"
+)
 
 type Rating struct {
 	user  string
-	value *RatingValue
+	value *value.RatingValue
 }
 
-func NewRating(user string, value int) (*Rating, error) {
-	ratingValue, err := NewRatingValue(value)
+func NewRating(user string, val int) (*Rating, error) {
+	ratingValue, err := value.NewRatingValue(val)
 	if err != nil {
 		return nil, err
 	}
@@ -20,7 +24,7 @@ func (rating *Rating) User() string {
 	return rating.user
 }
 
-func (rating *Rating) Value() *RatingValue {
+func (rating *Rating) Value() *value.RatingValue {
 	return rating.value
 }
 

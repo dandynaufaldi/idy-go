@@ -1,25 +1,27 @@
-package model
+package entity
 
 import (
 	"fmt"
+
+	"github.com/dandynaufaldi/idy-go/domain/value"
 )
 
 // Idea represents Idea in domain model
 type Idea struct {
-	id            *IdeaID
+	id            *value.IdeaID
 	title         string
 	description   string
-	author        *Author
+	author        *value.Author
 	totalVotes    int
 	ratings       []*Rating
 	averageRating float32
 }
 
 // NewIdea create fresh new idea
-func NewIdea(title, description, authorName, authorEmail string, IDProvider IDProvider) *Idea {
-	author := NewAuthor(authorName, authorEmail)
+func NewIdea(title, description, authorName, authorEmail string) *Idea {
+	author := value.NewAuthor(authorName, authorEmail)
 	return &Idea{
-		id:          NewIdeaID("", IDProvider),
+		id:          value.NewIdeaID(""),
 		title:       title,
 		description: description,
 		author:      author,
@@ -27,7 +29,7 @@ func NewIdea(title, description, authorName, authorEmail string, IDProvider IDPr
 	}
 }
 
-func (idea *Idea) ID() *IdeaID {
+func (idea *Idea) ID() *value.IdeaID {
 	return idea.id
 }
 
@@ -35,7 +37,7 @@ func (idea *Idea) Title() string {
 	return idea.title
 }
 
-func (idea *Idea) Author() *Author {
+func (idea *Idea) Author() *value.Author {
 	return idea.author
 }
 
@@ -87,7 +89,7 @@ func (idea *Idea) updateAverageRatings() {
 
 type ErrUserHasRated struct {
 	raterEmail string
-	ideaID     *IdeaID
+	ideaID     *value.IdeaID
 }
 
 func (e *ErrUserHasRated) Error() string {
